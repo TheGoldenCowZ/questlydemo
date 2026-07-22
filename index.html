@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1" />
+  <meta name="theme-color" content="#222C5C" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <title>Questly — Demo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="stage">
+    <aside class="stage-copy" aria-hidden="true">
+      <p class="stage-eyebrow">Questly · Interactive demo</p>
+      <h1>Turning screen time into city-wide adventures</h1>
+      <p class="stage-sub">Open this page on a phone for the real experience — or tap through the emulator.</p>
+    </aside>
+
+    <div class="phone">
+      <div class="phone-bezel">
+        <div class="phone-notch" aria-hidden="true"></div>
+        <div class="phone-screen" id="app">
+
+          <!-- SPLASH -->
+          <section class="screen active" id="screen-splash" data-screen="splash">
+            <div class="splash">
+              <div class="splash-orbs" aria-hidden="true">
+                <span class="orb orb-a"></span>
+                <span class="orb orb-b"></span>
+                <span class="orb orb-c"></span>
+              </div>
+              <p class="splash-eyebrow">Zagreb pilot · 2026</p>
+              <h1 class="splash-brand">Questly</h1>
+              <p class="splash-tag">Where real visits earn real tokens for real rewards.</p>
+              <button class="btn btn-coral" data-go="home">Start exploring</button>
+              <button class="btn btn-ghost" data-go="parent">I'm a parent</button>
+            </div>
+          </section>
+
+          <!-- HOME -->
+          <section class="screen" id="screen-home" data-screen="home">
+            <header class="topbar">
+              <div>
+                <p class="topbar-hello">Hey Mia</p>
+                <h2 class="topbar-title">Today's quests</h2>
+              </div>
+              <button class="token-pill" data-go="wallet" aria-label="Open wallet">
+                <span class="token-dot"></span>
+                <span id="token-count">40</span>
+              </button>
+            </header>
+
+            <div class="map-card" aria-hidden="true">
+              <div class="map-grid"></div>
+              <span class="map-pin pin-1"></span>
+              <span class="map-pin pin-2"></span>
+              <span class="map-pin pin-3"></span>
+              <span class="map-you">You</span>
+              <p class="map-label">Zagreb · nearby</p>
+            </div>
+
+            <div class="quest-list" id="quest-list"></div>
+
+            <nav class="tabbar">
+              <button class="tab active" data-go="home">
+                <span class="tab-icon">⌂</span> Quests
+              </button>
+              <button class="tab" data-go="wallet">
+                <span class="tab-icon">◇</span> Rewards
+              </button>
+              <button class="tab" data-go="parent">
+                <span class="tab-icon">◎</span> Family
+              </button>
+            </nav>
+          </section>
+
+          <!-- QUEST DETAIL -->
+          <section class="screen" id="screen-quest" data-screen="quest">
+            <header class="topbar topbar-back">
+              <button class="back-btn" data-go="home" aria-label="Back">←</button>
+              <h2 class="topbar-title">Quest</h2>
+              <span class="topbar-spacer"></span>
+            </header>
+
+            <div class="quest-hero" id="quest-hero">
+              <span class="quest-emoji" id="quest-emoji">🏛</span>
+            </div>
+
+            <div class="quest-body">
+              <p class="eyebrow" id="quest-type">Museum</p>
+              <h2 id="quest-title">Visit the Zagreb City Museum</h2>
+              <p class="quest-desc" id="quest-desc">Explore Zagreb's story — snap a photo at the entrance to complete the quest.</p>
+
+              <div class="stat-row">
+                <div class="stat">
+                  <span class="stat-label">Reward</span>
+                  <span class="stat-value coral" id="quest-reward">+25</span>
+                </div>
+                <div class="stat">
+                  <span class="stat-label">Distance</span>
+                  <span class="stat-value" id="quest-dist">0.8 km</span>
+                </div>
+                <div class="stat">
+                  <span class="stat-label">Time</span>
+                  <span class="stat-value" id="quest-time">~45 min</span>
+                </div>
+              </div>
+
+              <ol class="steps">
+                <li>Head to the location</li>
+                <li>Snap a photo as proof</li>
+                <li>Earn tokens for real rewards</li>
+              </ol>
+
+              <button class="btn btn-coral btn-block" id="btn-start-quest">I'm here — snap photo</button>
+            </div>
+          </section>
+
+          <!-- CAMERA -->
+          <section class="screen" id="screen-camera" data-screen="camera">
+            <header class="topbar topbar-back topbar-dark">
+              <button class="back-btn" data-go="quest" aria-label="Back">←</button>
+              <h2 class="topbar-title">Snap proof</h2>
+              <span class="topbar-spacer"></span>
+            </header>
+
+            <div class="camera">
+              <div class="camera-view" id="camera-view">
+                <div class="camera-frame"></div>
+                <p class="camera-hint" id="camera-hint">Point at the location</p>
+              </div>
+              <p class="camera-note">Demo mode — tap the shutter to simulate AI verification.</p>
+              <button class="shutter" id="btn-shutter" aria-label="Take photo">
+                <span></span>
+              </button>
+            </div>
+          </section>
+
+          <!-- SUCCESS -->
+          <section class="screen" id="screen-success" data-screen="success">
+            <div class="success">
+              <div class="success-burst" aria-hidden="true"></div>
+              <p class="eyebrow">Quest complete</p>
+              <h2 id="success-title">Nice work!</h2>
+              <p class="success-sub" id="success-sub">AI verified your visit.</p>
+              <div class="token-earn">
+                <span class="token-earn-plus" id="success-tokens">+25</span>
+                <span>Questly tokens</span>
+              </div>
+              <button class="btn btn-coral btn-block" data-go="wallet">See rewards</button>
+              <button class="btn btn-ghost btn-block" data-go="home">Find another quest</button>
+            </div>
+          </section>
+
+          <!-- WALLET / REWARDS -->
+          <section class="screen" id="screen-wallet" data-screen="wallet">
+            <header class="topbar">
+              <div>
+                <p class="topbar-hello">Your wallet</p>
+                <h2 class="topbar-title">Rewards</h2>
+              </div>
+            </header>
+
+            <div class="wallet-balance">
+              <p class="wallet-label">Available tokens</p>
+              <p class="wallet-amount"><span id="wallet-tokens">40</span></p>
+              <p class="wallet-note">Loyalty currency — redeem with local partners. Not crypto.</p>
+            </div>
+
+            <h3 class="section-label">Redeem nearby</h3>
+            <div class="reward-list" id="reward-list"></div>
+
+            <nav class="tabbar">
+              <button class="tab" data-go="home">
+                <span class="tab-icon">⌂</span> Quests
+              </button>
+              <button class="tab active" data-go="wallet">
+                <span class="tab-icon">◇</span> Rewards
+              </button>
+              <button class="tab" data-go="parent">
+                <span class="tab-icon">◎</span> Family
+              </button>
+            </nav>
+          </section>
+
+          <!-- PARENT -->
+          <section class="screen" id="screen-parent" data-screen="parent">
+            <header class="topbar">
+              <div>
+                <p class="topbar-hello">Family tracker</p>
+                <h2 class="topbar-title">Mia, age 10</h2>
+              </div>
+            </header>
+
+            <div class="parent-summary">
+              <div class="parent-stat">
+                <span class="parent-num">3</span>
+                <span>Quests this week</span>
+              </div>
+              <div class="parent-stat">
+                <span class="parent-num green">4.2h</span>
+                <span>Active outdoors</span>
+              </div>
+              <div class="parent-stat">
+                <span class="parent-num muted">2.1h</span>
+                <span>Screen time</span>
+              </div>
+            </div>
+
+            <h3 class="section-label">Weekly activity</h3>
+            <div class="chart" aria-hidden="true">
+              <div class="chart-day"><div class="bar active" style="--h:70%"></div><div class="bar screen" style="--h:40%"></div><span>Mon</span></div>
+              <div class="chart-day"><div class="bar active" style="--h:50%"></div><div class="bar screen" style="--h:50%"></div><span>Tue</span></div>
+              <div class="chart-day"><div class="bar active" style="--h:90%"></div><div class="bar screen" style="--h:30%"></div><span>Wed</span></div>
+              <div class="chart-day"><div class="bar active" style="--h:40%"></div><div class="bar screen" style="--h:60%"></div><span>Thu</span></div>
+              <div class="chart-day"><div class="bar active" style="--h:100%"></div><div class="bar screen" style="--h:35%"></div><span>Fri</span></div>
+            </div>
+            <div class="chart-legend">
+              <span><i class="lg active"></i> Active time</span>
+              <span><i class="lg screen"></i> Screen time</span>
+            </div>
+
+            <h3 class="section-label">Recent activity</h3>
+            <ul class="feed">
+              <li><strong>Zagreb City Museum</strong><span>+25 · yesterday</span></li>
+              <li><strong>Maksimir Park walk</strong><span>+15 · Wed</span></li>
+              <li><strong>Try a sport club</strong><span>+30 · Mon</span></li>
+            </ul>
+
+            <nav class="tabbar">
+              <button class="tab" data-go="home">
+                <span class="tab-icon">⌂</span> Quests
+              </button>
+              <button class="tab" data-go="wallet">
+                <span class="tab-icon">◇</span> Rewards
+              </button>
+              <button class="tab active" data-go="parent">
+                <span class="tab-icon">◎</span> Family
+              </button>
+            </nav>
+          </section>
+
+          <!-- REDEEM MODAL overlay inside phone -->
+          <div class="toast" id="toast" hidden></div>
+
+        </div>
+        <div class="phone-home-bar" aria-hidden="true"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
